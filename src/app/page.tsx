@@ -15,9 +15,11 @@ export default async function Home() {
 
   // Obtener el campo de texto con el nombre "$nombre"
   const nombreField = form.getTextField('name');
+  const currentDate = new Date();
+  const dateString = currentDate.toISOString();
 
   // Actualizar el valor del campo a "Juan"
-  nombreField.setText('One Punch Man');
+  nombreField.setText('One Punch Man: '+ dateString);
   modifiedPdfBytes = await pdfDoc.save();
   fs.writeFile('./public/modified.pdf', modifiedPdfBytes);
 
