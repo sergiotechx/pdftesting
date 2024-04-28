@@ -21,6 +21,12 @@ export default async function Home() {
   // Actualizar el valor del campo a "Juan"
   nombreField.setText('One Punch Man: '+ dateString);
   modifiedPdfBytes = await pdfDoc.save();
+  try {
+    await fs.unlink('./public/modified.pdf');
+  } 
+  catch (error) {
+   
+  }
   fs.writeFile('./public/modified.pdf', modifiedPdfBytes);
 
 
