@@ -9,16 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "downloadjs": "^1.4.7",
+    "next": "14.2.3",
+    "pdf-lib": "^1.17.1",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.3"
+    "text-encoding": "^0.7.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@types/downloadjs": "^1.4.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "14.2.3"
+    "eslint-config-next": "14.2.3",
+    "typescript": "^5"
   }
 }
