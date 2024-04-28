@@ -15,23 +15,31 @@ export default async function Home() {
 
   // Obtener el campo de texto con el nombre "$nombre"
   const nombreField = form.getTextField('name');
-  const currentDate = new Date();
-  const dateString = currentDate.toISOString();
+  const currentTime = new Date();
+  const timeString = currentTime.toLocaleTimeString();
+
 
   // Actualizar el valor del campo a "Juan"
-  nombreField.setText('One Punch Man: '+ dateString);
+  nombreField.setText('One Punch Man: ' + timeString);
   modifiedPdfBytes = await pdfDoc.save();
-  try {
-    await fs.unlink('./public/modified.pdf');
-  } 
-  catch (error) {
-   
-  }
-  fs.writeFile('./public/modified.pdf', modifiedPdfBytes);
 
+  const modifiedPdfPath = './public/modified.pdf';
+  try {
+    await fs.unlink(modifiedPdfPath);
+  } catch (error: any) {
+    if (error.code !== 'ENOENT') { // ENOENT means file does not exist
+      throw error; // rethrow the error if it's not related to file non-existence
+    }
+  }
+
+  fs.writeFile('./public/modified.pdf', modifiedPdfBytes);
+  console.log('primero acá')
 
   return (
-    <Link href="/modified.pdf">Blog Post</Link>
+    <>
+      {console.log('segundo acá! ')}
+      <Link href="/modified.pdf">Blog Post</Link>
+    </>
 
 
 
