@@ -7,6 +7,14 @@ import fs from 'fs/promises';
 
 
 export default async function Home() {
+  const modifiedPdfPath = './public/modified.pdf';
+  try {
+    await fs.unlink(modifiedPdfPath);
+  } catch (error: any) {
+    if (error.code !== 'ENOENT') { // ENOENT means file does not exist
+      // rethrow the error if it's not related to file non-existence
+    }
+  }
   let modifiedPdfBytes: Uint8Array;
   const pdfData = await fs.readFile('./public/test.pdf');
   const pdfDoc = await PDFDocument.load(pdfData);
@@ -23,14 +31,7 @@ export default async function Home() {
   nombreField.setText('One Punch Man: ' + timeString);
   modifiedPdfBytes = await pdfDoc.save();
 
-  const modifiedPdfPath = './public/modified.pdf';
-  try {
-    await fs.unlink(modifiedPdfPath);
-  } catch (error: any) {
-    if (error.code !== 'ENOENT') { // ENOENT means file does not exist
-      // rethrow the error if it's not related to file non-existence
-    }
-  }
+  
 
   fs.writeFile('./public/modified.pdf', modifiedPdfBytes);
   console.log('primero acá')
@@ -38,6 +39,7 @@ export default async function Home() {
   return (
     <>
       {console.log('segundo acá! ')}
+      <Link href="/modified.pdf">Blog Post</Link>
       <Link href="/modified.pdf">Blog Post</Link>
     </>
 
