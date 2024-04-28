@@ -7,14 +7,14 @@ import fs from 'fs/promises';
 
 
 export default async function Home() {
-  const modifiedPdfPath = './public/modified.pdf';
+  /*const modifiedPdfPath = './public/modified.pdf';
   try {
     await fs.unlink(modifiedPdfPath);
   } catch (error: any) {
     if (error.code !== 'ENOENT') { // ENOENT means file does not exist
       // rethrow the error if it's not related to file non-existence
     }
-  }
+  }*/
   let modifiedPdfBytes: Uint8Array;
   const pdfData = await fs.readFile('./public/test.pdf');
   const pdfDoc = await PDFDocument.load(pdfData);
@@ -24,23 +24,24 @@ export default async function Home() {
   // Obtener el campo de texto con el nombre "$nombre"
   const nombreField = form.getTextField('name');
   const currentTime = new Date();
-  const timeString = currentTime.toLocaleTimeString();
+  let timeString = currentTime.toLocaleTimeString();
 
 
   // Actualizar el valor del campo a "Juan"
   nombreField.setText('One Punch Man: ' + timeString);
   modifiedPdfBytes = await pdfDoc.save();
-
+  timeString = timeString.replaceAll(':', '-')
+  timeString +='.pdf'
   
 
-  fs.writeFile('./public/modified.pdf', modifiedPdfBytes);
+  fs.writeFile(`./public/${timeString}`, modifiedPdfBytes);
   console.log('primero acá')
 
   return (
     <>
       {console.log('segundo acá! ')}
-      <Link href="/modified.pdf">Blog Post</Link>
-      <Link href="/modified.pdf">Blog Post</Link>
+      <Link href={timeString}>Blog Post</Link>
+     
     </>
 
 
