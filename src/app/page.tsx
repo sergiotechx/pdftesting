@@ -28,7 +28,7 @@ export default async function Home() {
     await fs.unlink(modifiedPdfPath);
   } catch (error: any) {
     if (error.code !== 'ENOENT') { // ENOENT means file does not exist
-      throw error; // rethrow the error if it's not related to file non-existence
+      // rethrow the error if it's not related to file non-existence
     }
   }
 
